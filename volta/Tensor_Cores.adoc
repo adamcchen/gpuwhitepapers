@@ -1,0 +1,77 @@
+= Tensor Cores
+
+Tesla P100 delivered considerably higher performance for training neural networks compared to 
+the prior generation NVIDIA Maxwell and Kepler architectures, but the complexity and size of 
+neural networks have continued to grow. As mentioned, new networks with thousands of layers 
+and millions of neurons demand even higher performance and faster training times. 
+
+New Tensor Cores are a key capability enabling the Volta GV100 GPU architecture to deliver the 
+performance required to train large neural networks.
+
+The Tesla V100 GPU contains 640 Tensor Cores: eight (8) per SM and two (2) per each processing 
+block (partition) within an SM. In Volta GV100, each Tensor Core performs 64 floating point FMA 
+operations per clock, and eight Tensor Cores in an SM perform a total of 512 FMA operations (or 
+1024 individual floating point operations) per clock.
+
+Tesla V100’s Tensor Cores deliver up to 125 Tensor TFLOPS for training and inference 
+applications. Tensor Cores provide up to 12x higher peak TFLOPS on Tesla V100 that can be 
+applied to deep learning training compared to using standard FP32 operations on P100. For deep 
+learning inference, V100 Tensor Cores provide up to 6x higher peak TFLOPS compared to 
+standard FP16 operations on P100. 
+
+Matrix-Matrix multiplication (GEMM) operations are at the core of neural network training and 
+inferencing, and are used to multiply large matrices of input data and weights in the connected 
+layers of the network. For applications that use single precision matrix multiplication, Figure 6
+shows that Tesla V100 with CUDA 9 delivers up to 1.8x higher performance than Tesla P100 with 
+CUDA 8. For matrix multiplication with half-precision inputs for training and inference operations,
+Figure 7 shows that for the case of matrix operations with FP16 inputs and FP32 accumulation, 
+Volta’s mixed-precision Tensor Cores boost performance by more than 9x compared to P100.
+
+Single-precision (FP32) MatrixMatrix Multiplies are up to 1.8x faster on Tesla V100 with CUDA 9
+than on Tesla P100 with CUDA 8
+
+Figure 6. cuBLAS Single Precision (FP32)
+
+Mixed Precision Matrix-Matrix Multiplies are over 9x faster on Tesla V100 with CUDA 9 compared
+to FP32 matrix multiplies on Tesla P100 with CUDA 8
+
+Figure 7. cuBLAS Mixed Precision (FP16 Input, FP32 Compute)
+
+Tensor Cores and their associated data paths are custom-designed to dramatically increase
+floating-point compute throughput with high energy efficiency.
+
+Each Tensor Core operates on a 4x4 matrix and performs the following operation:
+
+D = A×B + C
+
+where A, B, C, and D are 4x4 matrices (Figure 8). The matrix multiply inputs A and B are FP16
+matrices, while the accumulation matrices C and D may be FP16 or FP32 matrices (see Figure 8).
+
+Figure 8. Tensor Core 4x4 Matrix Multiply and Accumulate
+
+Tensor Cores operate on FP16 input data with FP32 accumulation. The FP16 multiply results in a
+full precision product that is then accumulated using FP32 addition with the other intermediate
+products for a 4x4x4 matrix multiply (see Figure 9). In practice, Tensor Cores are used to perform
+much larger 2D or higher dimensional matrix operations, built up from these smaller elements.
+
+Figure 9. Mixed Precision Multiply and Accumulate in Tensor Core
+
+Figure 10 shows the 4x4 matrix multiplication (using the two source 4x4 matrices outside the
+cube) requiring 64 operations (represented by the cube) to generate a 4x4 output matrix (shown
+below the cube). The Volta-based V100 accelerator with Tensor Cores can perform such
+calculations at 12x faster rate than Pascal-based Tesla P100.
+
+Figure 10. Pascal and Volta 4x4 Matrix Multiplication
+
+The Volta tensor cores are accessible and exposed as Warp-Level Matrix Operations in the
+CUDA 9 C++ API. The API exposes specialized matrix load, matrix multiply and accumulate, and
+matrix store operations to efficiently use Tensor Cores from a CUDA-C++ program. At the CUDA
+level, the warp-level interface assumes 16x16 size matrices spanning all 32 threads of the warp.
+
+In addition to CUDA-C++ interfaces to program Tensor Cores directly, cuBLAS and cuDNN libraries
+have been updated to provide new library interfaces to make use of Tensor Cores for deep
+learning applications and frameworks. NVIDIA has worked with many popular deep learning
+frameworks such as Caffe2 and MXNet to enable use of Tensor Cores for deep learning research
+on Volta GPU based systems. NVIDIA is working to add support for Tensor Cores in other
+frameworks as well.
+

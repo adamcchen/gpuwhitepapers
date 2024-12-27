@@ -1,0 +1,42 @@
+= Enhanced L1 Data Cache and Shared Memory
+
+The new combined L1 data cache and shared memory subsystem of the Volta SM significantly 
+improves performance while also simplifying programming and reducing the tuning required to 
+attain at or near-peak application performance. 
+
+Combining data cache and shared memory functionality into a single memory block provides the 
+best overall performance for both types of memory accesses. The combined capacity is 128 
+KB/SM, more than seven times larger than the GP100 data cache, and all of it is usable as a cache 
+by programs that do not use shared memory. Texture units also use the cache. For example, if 
+shared memory is configured to 64 KB, texture and load/store operations can use the remaining 
+64 KB of L1. 
+
+Integration within the shared memory block ensures the Volta GV100 L1 cache has much lower 
+latency and higher bandwidth than the L1 caches in past NVIDIA GPUs. The L1 In Volta functions 
+as a high-throughput conduit for streaming data while simultaneously providing high-bandwidth 
+and low-latency access to frequently reused data—the best of both worlds. This combination is 
+unique to Volta and delivers more accessible performance than in the past.
+
+A key reason to merge the L1 data cache with shared memory in GV100 is to allow L1 cache 
+operations to attain the benefits of shared memory performance. Shared memory provides high 
+bandwidth, low latency, and consistent performance (no cache misses), but the CUDA 
+programmer needs to explicitly manage this memory. Volta narrows the gap between 
+applications that explicitly manage shared memory and those that access data in device memory 
+directly. To demonstrate this, we modified a suite of programs by replacing shared memory 
+arrays with device memory arrays so that accesses would go through L1 cache. As Figure 11
+shows, on Volta these codes saw only a 7% performance loss running without using shared 
+memory, compared to a 30% performance loss on Pascal. While shared memory remains the best 
+choice for maximum performance, the new Volta L1 design enables programmers to get excellent 
+performance quickly, with less programming effort.
+
+Volta’s L1 data cache narrows the gap between applications that are manually tuned to keep data 
+in shared memory and those that access data in device memory directly.
+
+Figure 11. Comparison of Pascal and Volta Data Cache
+
+The GV100 L1 cache improves performance in a variety of situations where shared memory is not
+the best choice or is unable to work. With Volta GV100, the merging of shared memory and L1
+delivers a high-speed path to global memory capable of streaming access with unlimited cache-
+misses in flight. Prior NVIDIA GPUs only performed load caching, while GV100 introduces write-
+caching (caching of store operations) to further improve performance.
+
