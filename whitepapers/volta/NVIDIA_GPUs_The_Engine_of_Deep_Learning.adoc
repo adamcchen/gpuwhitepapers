@@ -1,0 +1,79 @@
+= NVIDIA GPUS: THE ENGINE OF DEEP LEARNING
+
+State-of-the-art DNNs and CNNs can have from millions to well over one billion parameters to 
+adjust via back-propagation. Furthermore, DNNs require a large amount of training data to 
+achieve high accuracy, meaning hundreds of thousands to millions of input samples will have to 
+be run through both a forward and backward pass. 
+
+It is now widely recognized within academia and industry that GPUs are the state of the art in 
+training deep neural networks, due to both speed and energy efficiency advantages compared to 
+more traditional CPU-based platforms. Because neural networks are created from large numbers 
+of identical neurons, they are highly parallel by nature. This parallelism maps naturally to GPUs, 
+which provide a significant speedup over CPU-only training. 
+
+Neural networks rely heavily on matrix math operations, and complex multi-layered networks 
+require tremendous amounts of floating-point performance and bandwidth for both efficiency 
+and speed. GPUs with their thousands of processing cores, optimized for matrix math operations, 
+and delivering tens to hundreds of TFLOPS of performance, are the obvious computing platform 
+for deep neural network-based artificial intelligence and machine learning applications.
+
+== Training Deep Neural Networks
+
+State-of-the-art neural networks have from millions to well over one billion parameters to adjust 
+via back-propagation. Furthermore, neural networks require a large amount of training data to 
+converge at a high level of accuracy, meaning hundreds of thousands to millions of input samples 
+must be run through both a forward and backward pass (see Figure 35).
+
+Training complex neural networks requires massive amounts of parallel computing performance, 
+which at a fundamental level involves trillions of floating-point multiplications and additions. In 
+the early days of training neural networks on GPUs, these calculations were done using single-
+precision floating-point computation (FP32) in parallel, on the thousands of cores available on 
+NVIDIA’s Fermi and Kepler GPU architectures. The cores in those architectures were primarily 
+optimized for HPC, with support for single-precision FP32 and double-precision FP64 data types
+using FMA instructions that allowed fast and high precision floating-point computations.
+
+Figure 35. Training a Neural Network
+
+Further research and development in the field of deep learning showed that in many cases,
+neural networks could be trained using half-precision FP16 data types to achieve the same level 
+of accuracy as training with FP32 data. Although training of some networks will not converge 
+using only FP16 data, research has shown that this can be overcome by using lower precision 
+data types for most of the convolution layers of the network and the accumulation of results may 
+often be done using higher precision data types(https://arxiv.org/abs/1412.7024)
+
+Using FP16 data reduces memory footprint and bandwidth requirements of the neural network 
+compared to higher precision FP32 or FP64, and can deliver significant speedups. For example, in 
+the NVIDIA Pascal GPU architecture, using FP16 computation improves performance up to 2x 
+compared to FP32 arithmetic, and FP16 data transfers take less time and use half the memory 
+bandwidth of FP32 transfers.
+
+
+== Inferencing Using a Trained Neural Network
+
+Training a neural network is a compute-intensive process that requires large sets of input data, 
+forward passes for error detection, and multiple backward passes of adjusting the weights of 
+millions of neurons in various layers of the network. Inferencing is less compute-intensive, but is 
+instead a latency-sensitive process where a trained network is applied to new inputs it has not 
+seen before to classify images, translate speech, and generally infer new information (see 
+Figure 36).
+
+Research has shown that inferencing using half-precision FP16 data delivers the same 
+classification accuracy as FP32 [5]. With FP16 data types [6], inference throughput can be increased up 
+to 2x in the Pascal GPU and Tegra X1 SoC architectures compared to using FP32 data types. 
+Inferencing can also be done using 8-bit integer (INT8) precision with minimal loss in accuracy 
+while tremendously accelerating inference throughput.
+
+[5] https://arxiv.org/pdf/1502.02551.pdf
+[6] https://www.nvidia.com/content/tegra/embedded-systems/pdf/jetson_tx1_whitepaper.pdf
+
+Figure 36. Inferencing on a Neural Network
+
+Recognizing these benefits, NVIDIA’s previous Pascal GP100 architecture included native support 
+for the FP16 data format, and other Pascal-based GPUs such as the NVIDIA Tesla P40 and NVIDIA 
+Tesla P4 also included support for INT8 to further accelerate inference performance.
+
+The Pascal GP100-based Tesla P100 card delivers 21.2 TFLOPS of FP16 performance. GPUs such 
+as the NVIDIA Tesla P40 that support INT8 computation deliver nearly 48 INT8 TOPS of 
+performance, further boosting the inference performance of datacenter servers. And as 
+described earlier in this whitepaper, Volta’s Tensor Cores take performance to a whole new level, 
+with up to 125 TFLOPS of compute performance for both inferencing and training.

@@ -1,0 +1,106 @@
+= Tesla P100: Revolutionary Performance and Features for GPU Computing
+
+With a 15.3 billion transistor GPU, a new high performance interconnect that greatly accelerates GPU 
+peer-to-peer and GPU-to-CPU communications, new technologies to simplify GPU programming, and 
+exceptional power efficiency, Tesla P100 is not only the most powerful, but also the most architecturally 
+complex GPU accelerator architecture ever built. 
+
+Key features of Tesla P100 include: 
+
+Extreme performance::
+Powering HPC, Deep Learning, and many more GPU Computing areas
+NVLink™::
+NVIDIA’s new high speed, high bandwidth interconnect for maximum application scalability
+HBM2::
+Fast, high capacity, extremely efficient CoWoS (Chip-on-Wafer-on-Substrate) stacked memory 
+architecture
+Unified Memory, Compute Preemption, and New AI Algorithms::
+Significantly improved programming model and advanced AI software optimized for the Pascal 
+architecture;
+16nm FinFET::
+Enables more features, higher performance, and improved power efficiency
+
+Figure 2. New Technologies in Tesla P100
+
+== Extreme Performance for High Performance Computing and Deep Learning
+Tesla P100 was built to deliver exceptional performance for the most demanding compute applications, 
+delivering:
+
+* 5.3 TFLOPS of double precision floating point (FP64) performance
+* 10.6 TFLOPS of single precision (FP32) performance
+* 21.2 TFLOPS of half-precision (FP16) performance
+
+Figure 3. Tesla P100 Significantly Exceeds Compute Performance of Past GPU Generations
+
+In addition to the numerous areas of high performance computing that NVIDIA GPUs have accelerated for 
+a number of years, most recently Deep Learning has become a very important area of focus for GPU 
+acceleration. NVIDIA GPUs are now at the forefront of deep neural networks (DNNs) and artificial 
+intelligence (AI). They are accelerating DNNs in various applications by a factor of 10x to 20x compared to 
+CPUs, and reducing training times from weeks to days. In the past three years, NVIDIA GPU-based 
+computing platforms have helped speed up Deep Learning network training times by a factor of fifty. In
+the past two years, the number of companies NVIDIA collaborates with on Deep Learning has jumped 
+nearly 35x to over 3,400 companies.
+
+New innovations in our Pascal architecture, including native 16-bit floating point (FP) precision, allow 
+GP100 to deliver great speedups for many Deep Learning algorithms. These algorithms do not require 
+high levels of floating-point precision, but they gain large benefits from the additional computational 
+power FP16 affords, and the reduced storage requirements for 16-bit datatypes. 
+
+== NVLink: Extraordinary Bandwidth for Multi-GPU and GPU-toCPU Connectivity
+
+As GPU-accelerated computing has risen in popularity, more multi-GPU systems are being deployed at all 
+levels, from workstations to servers, to supercomputers. Many 4-GPU and 8-GPU system configurations 
+are now used to solve bigger and more complex problems. Multiple groups of multi-GPU systems are 
+being interconnected using InfiniBand® and 100 Gb Ethernet to form much larger and more powerful 
+systems. The ratio of GPUs to CPUs has also increased. 2012’s fastest supercomputer, the Titan located at 
+Oak Ridge National Labs, deployed one GK110 GPU per CPU. Today, two or more GPUs are more 
+commonly being paired per CPU as developers increasingly expose and leverage the available parallelism 
+provided by GPUs in their applications. As this trend continues, PCIe bandwidth at the multi-GPU system 
+level becomes a bigger bottleneck. 
+
+To address this issue, Tesla P100 features NVIDIA’s new high-speed interface, NVLink, that provides GPU-
+to-GPU data transfers at up to 160 Gigabytes/second of bidirectional bandwidth—5x the bandwidth of 
+PCIe Gen 3 x16. Figure 4 shows NVLink connecting eight Tesla P100 Accelerators in a Hybrid Cube Mesh 
+Topology.
+
+Figure 4. NVLink Connecting Eight Tesla P100 Accelerators in a Hybrid Cube Mesh Topology
+
+Figure 5 shows the performance for various workloads, demonstrating the performance scalability a 
+server can achieve with up to eight GP100 GPUs connected via NVLink. (Note: These numbers are 
+measured on pre-production P100 GPUs.)
+
+Figure 5. Largest Performance Increase with Eight P100s connected via NVLink
+
+== HBM2 High-Speed GPU Memory Architecture 
+
+Tesla P100 is the world’s first GPU architecture to support HBM2 memory. HBM2 offers three times (3x) 
+the memory bandwidth of the Maxwell GM200 GPU. This allows the P100 to tackle much larger working 
+sets of data at higher bandwidth, improving efficiency and computational throughput, and reduce the 
+frequency of transfers from system memory.
+
+Because HBM2 memory is stacked memory and is located on the same physical package as the GPU, it 
+provides considerable space savings compared to traditional GDDR5, which allows us to build denser GPU 
+servers more easily than ever before. 
+
+Figure 6. Tesla P100 with HBM2 Significantly Exceeds Memory Bandwidth of Past GPU Generations
+
+== Simplified Programming for Developers with Unified Memory and Compute Preemption
+
+Unified Memory is a significant advancement for NVIDIA GPU computing and a major new hardware and 
+software-based feature of the Pascal GP100 GPU architecture. It provides a single, seamless unified 
+virtual address space for CPU and GPU memory. Unified Memory greatly simplifies GPU programming and 
+porting of applications to GPUs and also reduces the GPU computing learning curve. Programmers no 
+longer need to worry about managing data sharing between two different virtual memory systems. 
+GP100 is the first NVIDIA GPU to support hardware page faulting, and when combined with new 49-bit 
+(512 TB) virtual addressing, allows transparent migration of data between the full virtual address spaces 
+of both the GPU and CPU.
+
+Compute Preemption is another important new hardware and software feature added to GP100 that 
+allows compute tasks to be preempted at instruction-level granularity, rather than thread block 
+granularity as in prior Maxwell and Kepler GPU architectures. Compute Preemption prevents long-running 
+applications from either monopolizing the system (preventing other applications from running) or timing 
+out. Programmers no longer need to modify their long-running applications to play nicely with other GPU 
+applications. With Compute Preemption in GP100, applications can run as long as needed to process large 
+datasets or wait for various conditions to occur, while scheduled alongside other tasks. For example, both 
+interactive graphics tasks and interactive debuggers can run in concert with long-running compute tasks.
+

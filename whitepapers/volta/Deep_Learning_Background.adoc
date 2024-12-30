@@ -1,0 +1,20 @@
+= Deep Learning Background
+
+Many different approaches have been used over the years to model human intelligence in the 
+field of Artificial Intelligence. Machine Learning is a very popular approach to AI that train systems 
+to learn how to make decisions and predict results on their own. Deep learning is a machine 
+learning technique inspired by the neural learning process of the human brain. Deep learning 
+uses deep neural networks (DNNs), so called because of their deep layering of many connected 
+artificial neurons (sometimes called perceptrons), which can be trained with enormous amounts 
+of input data to quickly solve complex problems with high accuracy. Once a neural network is 
+trained, it can be deployed and used to identify and classify objects or patterns in a process 
+known as inference. See Appendix C starting on page 44 in this paper for a high-level explanation 
+of how a neural network operates.
+
+Most neural networks consist of multiple layers of interconnected neurons. Each neuron and 
+layer contributes towards the task that the network has been trained to execute. For example; 
+AlexNet, the Convolutional Neural Network (CNN) that won the 2012 ImageNet competition, 
+consists of eight layers, 650,000 interconnected neurons, and almost 60 million parameters. 
+Today, the complexity of neural networks has increased significantly, with recent networks such 
+as deep residual networks (for example ResNet-152) having more than 150 layers, and millions 
+more connected neurons and parameters.

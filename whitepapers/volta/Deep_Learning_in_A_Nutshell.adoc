@@ -1,0 +1,86 @@
+= DEEP LEARNING IN A NUTSHELL
+
+Deep learning is a technique that models the neural learning process of the human brain, 
+continually learning, continually getting smarter, and delivering more accurate results more 
+quickly over time. A child is initially taught by an adult to correctly identify and classify various 
+shapes, eventually being able to identify shapes without any coaching. Similarly, a deep learning 
+or neural learning system needs to be trained in object recognition and classification for it get 
+smarter and more efficient at identifying basic objects, occluded objects, etc., while also assigning 
+context to objects.
+
+At the simplest level, neurons in the human brain look at various inputs fed into them, 
+importance levels are assigned to each of these inputs, and output is passed on to other neurons 
+to act upon. 
+
+The Perceptron as shown in Figure 33 is the most basic model of a neural network and is akin to a 
+neuron in the human brain. As seen in the image, the Perceptron has several inputs that 
+represent various features of an object that the Perceptron is being trained to recognize and 
+classify, and each of these features is assigned a certain weight based on the importance of that 
+feature in defining the shape of an object.
+
+Figure 33. Perceptron is the Simplest Model of a Neural Network
+
+For example, consider a Perceptron that is being trained to identify the number zero that is 
+handwritten. Obviously, the number zero can be written in different ways based on different 
+handwriting styles. The Perceptron will take the image of the number zero, decompose it into 
+various sections and assign these sections to features x1 through x4. The upper right-hand curve 
+in the number zero may be assigned to x1, the lower bottom curve to x2, and so on. The weight 
+associated with a particular feature determines how important that feature is in correctly 
+determining whether the handwritten number is a zero. The green blob at the center of the 
+diagram is where the Perceptron is calculating the weighted sum of all the features in the image 
+to determine whether the number is a zero. A function is then applied on this result to output a 
+true or false value on whether the number is a zero.
+
+The key aspect of a neural network is in training the network to make better predictions. The 
+Perceptron model (shown in Figure 33) to detect handwritten zeros is trained by initially assigning 
+a set of weights to each of the features that define the number zero. The Perceptron is then 
+provided with the number zero to check whether it correctly identifies the number. This flow of 
+data through the network until it reaches a conclusion on whether the number is zero or not, is
+the forward propagation phase. If the neural network does not correctly identify the number, 
+then the reason for the incorrect identification needs to be understood, along with the 
+magnitude of the error, and the weights need to be adjusted for each feature until the 
+perceptron correctly identifies a zero. The weights need further adjusting until it correctly 
+identifies zeros written in various handwriting styles. This process of feeding back the errors and 
+adjusting the weights of each feature that defines the number zero is called backward 
+propagation. The equations shown in the diagram look complex, but are basically mathematical 
+representations of the described training process.
+
+Though the Perceptron is a very simple model of a neural network, advanced multi-layered neural 
+networks based on similar concepts are widely used today. Once a network has been trained to 
+correctly identify and classify the objects, it is deployed in the field, where it will repeatedly run 
+inference computations. Examples of inference (the process through which a DNN extracts useful 
+information from a given input) include identifying handwritten numbers on checks deposited 
+into ATM machines, identifying images of friends in Facebook photos, delivering movie 
+recommendations to over fifty million Netflix users, identifying and classifying different types of 
+automobiles, pedestrians, and road hazards in driverless cars, or translating human speech in 
+real-time.
+
+A multi-layered neural network model, as shown in Figure 34, consists of multiple 
+interconnected, complex Perceptron-like nodes. Each node looks at many input features, and 
+feeds its output to the next several layers of interconnected nodes.
+
+In the model shown in Figure 34, the first layer of the neural model breaks down the automobile 
+image into various sections, and looks for basic patterns such as lines and angles. The second 
+layer assembles these lines to look for higher level patterns such as wheels, windshields, and 
+mirrors. The next layer identifies the type of vehicle, and the final few layers identify the model of 
+a specific automobile brand (which in this case is an Audi A7).
+
+An alternative to a fully connected layer of a neural network is a convolutional layer. A neuron in 
+a convolutional layer is connected to neurons only in a small region in the layer below it. 
+Typically, this region might be a 5×5 grid of neurons (or perhaps 7×7 or 11×11). The size of this 
+grid is called the filter size. Thus, a convolutional layer can be thought of as performing a 
+convolution on its input. This type of connection pattern mimics the pattern seen in perceptual 
+areas of the brain, such as retinal ganglion cells or cells in the primary visual cortex.
+
+Image source: Unsupervised Learning Hierarchical Representations with Convolutional Deep Brief Networks, ICML 2009 & Comm. 
+ACM 2011, Honglak Lee, Roger Grosse, Rajesh Ranganath, and Andrew Ng.
+
+Figure 34. Complex Multi-Layer Neural Network Models Require Increased Amounts of Compute Power
+
+In a DNN convolutional layer, the filter weights are the same for each neuron in that layer. 
+Typically, a convolutional layer is implemented as many sub layers each with a different filter. 
+Hundreds of different filters may be used in one convolutional layer. One can think of a DNN 
+convolutional layer as performing hundreds of different convolutions on its input at the same 
+time, with the results of these convolutions available to the next layer up. DNNs that incorporate 
+convolutional layers are called Convolutional Neural Networks (CNNs).
+

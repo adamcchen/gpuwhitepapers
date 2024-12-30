@@ -1,0 +1,145 @@
+= Unified Memory
+
+Unified Memory is an important feature of the CUDA programming model that greatly simplifies 
+programming and porting of applications to GPUs by providing a single, unified virtual address space for 
+accessing all CPU and GPU memory in the system. New Pascal GP100 features provide a significant 
+advancement for GPU computing by expanding the capabilities and improving the performance of Unified 
+Memory.
+
+The key to high performance on modern processors is to ensure that the hardware computational units 
+have fast, direct access to data. Over the years, NVIDIA has continuously improved and simplified GPU 
+memory accesses and data sharing so that GPU programmers can focus more on building parallel 
+applications and less on managing memory allocations and data transfers between GPU and CPU.
+
+For many years, in a typical PC or cluster node, the memories of the CPU and each GPU have been
+physically distinct and separated by an interconnect bus, typically PCIe. In early versions of CUDA, GPU 
+programmers had to explicitly manage CPU and GPU memory allocations and data transfers. This was
+challenging because any data shared between the CPU and GPU required two allocations, one in system 
+memory and one in GPU memory. The programmer had to use explicit memory copy calls to move the 
+most up-to-date data between them. Keeping the data in the right place at the right time added 
+complexity to applications and increased the learning curve for new GPU programmers.
+
+Explicit data transfers can also cost performance in the case of sparse memory access—for example, 
+copying a whole array back to the GPU after only a few random bytes are written by the CPU adds 
+transfer latency overhead. Managing memory transfers, improving memory locality, and using techniques 
+such as asynchronous memory copies can improve performance, but these all require more care in 
+programming.
+
+== Unified Memory History
+
+The NVIDIA Fermi GPU architecture, introduced in 2009, implemented a unified GPU address space 
+spanning the three main GPU memory spaces (thread private local memory, thread block shared 
+memory, and global memory). This unified address space only applied to GPU memory addressing, and 
+mainly resulted in simpler compilation by enabling a single load/store instruction and pointer address to 
+access any of the GPU memory spaces (global, local, or shared memory), rather than different 
+instructions and pointers for each. This also enabled full C and C++ pointer support, which was a 
+significant advancement at the time.
+
+In 2011, CUDA 4 introduced Unified Virtual Addressing (UVA) to provide a single virtual memory address 
+space for both CPU and GPU memory and enable pointers to be accessed from GPU code no matter 
+where in the system they reside, whether in GPU memory (on the same or a different GPU), CPU 
+memory, or on-chip shared memory. UVA enables Zero-Copy memory, which is pinned CPU memory 
+accessible by GPU code directly, over PCIe, without a memcpy. Zero-Copy provides some of the 
+convenience of Unified Memory, but none of the performance, because it is always accessed by the GPU 
+with PCIe’s low bandwidth and high latency.
+
+CUDA 6 introduced Unified Memory, which creates a pool of managed memory that is shared between 
+the CPU and GPU, bridging the CPU-GPU divide. Managed memory is accessible to both the CPU and GPU 
+using a single pointer. The CUDA system software automatically migrates data allocated in Unified 
+Memory between GPU and CPU, so that it looks like CPU memory to code running on the CPU, and like 
+GPU memory to code running on the GPU. But CUDA 6 Unified Memory was limited by the features of the 
+Kepler and Maxwell GPU architectures: All managed memory touched by the CPU had to be synchronized 
+with the GPU before any kernel launch. The CPU and GPU could not simultaneously access a managed 
+memory allocation and the Unified Memory address space was limited to the size of the GPU physical 
+memory.
+
+Figure 19. CUDA 6 Unified Memory
+
+Figure 20 shows an example of how Unified Memory in CUDA 6 simplifies porting of code to the GPU by 
+providing a single pointer to data, making explicit CPU-GPU memory copies an optimization rather than a 
+requirement.
+
+Figure 20. CUDA 6 Unified Memory Simplifies Porting Code to the GPU
+
+(This is done by providing a new managed memory allocator that returns a pointer to data 
+that can be accessed from either CPU or GPU code.)
+
+== Pascal GP100 Unified Memory
+
+Expanding on the benefits of CUDA 6 Unified Memory, Pascal GP100 adds features to further simplify 
+programming and sharing of memory between CPU and GPU, and allowing easier porting of CPU parallel 
+compute applications to use GPUs for tremendous speedups. Two main hardware features enable these 
+improvements: support for large address spaces and page faulting capability.
+
+GP100 extends GPU addressing capabilities to enable 49-bit virtual addressing. This is large enough to 
+cover the 48-bit virtual address spaces of modern CPUs, as well as the GPU's own memory. This allows
+GP100 Unified Memory programs to access the full address spaces of all CPUs and GPUs in the system as 
+a single virtual address space, unlimited by the physical memory size of any one processor (see Figure 21).
+
+Memory page faulting support in GP100 is a crucial new feature that provides more seamless Unified 
+Memory functionality. Combined with the system-wide virtual address space, page faulting provides 
+several benefits. First, page faulting means that the CUDA system software does not need to synchronize 
+all managed memory allocations to the GPU before each kernel launch. If a kernel running on the GPU 
+accesses a page that is not resident in its memory, it faults, allowing the page to be automatically 
+migrated to the GPU memory on-demand. Alternatively, the page may be mapped into the GPU address 
+space for access over the PCIe or NVLink interconnects (mapping on access can sometimes be faster than
+migration). Note that Unified Memory is system-wide: GPUs (and CPUs) can fault and migrate memory 
+pages either from CPU memory or from the memory of other GPUs in the system.
+
+Figure 21. Pascal GP100 Unified Memory is not Limited by the Physical Size of GPU Memory.
+
+With the new page fault mechanism, global data coherency is guaranteed with Unified Memory. This 
+means that with GP100, the CPUs and GPUs can access Unified Memory allocations without any 
+programmer synchronization. This was illegal on Kepler and Maxwell GPUs because coherency could not 
+be guaranteed if the CPU accessed a Unified Memory allocation while a GPU kernel was active.
+
+Note: As with any parallel application, developers need to ensure correct synchronization to avoid data 
+hazards between processors.
+
+Finally, on supporting operating system platforms, memory allocated with the default OS allocator (for 
+example, malloc or new) can be accessed from both GPU code and CPU code using the same pointer (see 
+Figure 22). On these systems, Unified Memory can be the default: there is no need to use a special 
+allocator or for the creation of a special managed memory pool. Moreover, GP100's large virtual address 
+space and page faulting capability enable applications to access the entire system virtual memory. This 
+means that applications are permitted to oversubscribe the memory system: in other words they can 
+allocate, access, and share arrays larger than the total physical capacity of the system, enabling out-of-
+core processing of very large datasets.
+
+Certain operating system modifications are required to enable Unified Memory with the system allocator. 
+NVIDIA is collaborating with Red Hat and working within the Linux community to enable this powerful 
+functionality.
+
+Figure 22. With Operating System Support, Pascal is Capable of Supporting Unified Memory with the Default System Allocator. 
+
+(Here, malloc is all that is needed to allocate memory accessible from any CPU or GPU in the 
+system.)
+
+== Benefits of Unified Memory
+
+There are two main ways that programmers benefit from Unified Memory.
+
+* Simpler programming and memory model. Unified Memory lowers the bar of entry to parallel 
+programming on GPUs by making explicit device memory management an optimization, rather than a 
+requirement. Unified Memory lets programmers focus on developing parallel code without getting 
+bogged down in the details of allocating and copying device memory. This makes it easier to learn to 
+program GPUs and simpler to port existing code to the GPU. 
+* But it is not just for beginners; Unified Memory also makes complex data structures and C++ classes 
+much easier to use on the GPU. On systems that support Unified Memory with the default system 
+allocator, any hierarchical or nested data structure can automatically be accessed from any processor 
+in the system. With GP100, applications can operate out-of-core on data sets that are larger than the 
+total memory size of the system.
+* Performance through data locality. By migrating data on demand between the CPU and GPU, Unified 
+Memory can offer the performance of local data on the GPU, while providing the ease of use of 
+globally shared data. The complexity of this functionality is kept under the covers of the CUDA driver 
+and runtime, ensuring that application code is simpler to write. The point of migration is to achieve full 
+bandwidth from each processor; the high HBM2 memory bandwidth is vital to feeding the compute 
+throughput of a GP100 GPU. With page faulting on GP100, locality can be ensured even for programs 
+with sparse data access, where the pages accessed by the CPU or GPU cannot be known ahead of 
+time, and where the CPU and GPU access parts of the same array allocations simultaneously. 
+
+An important point is that CUDA programmers still have the tools they need to explicitly optimize data 
+management and CPU-GPU concurrency where necessary: CUDA 8 will introduce useful APIs for providing 
+the runtime with memory usage hints and for explicit prefetching. These tools allow the same capabilities 
+as explicit memory copy and pinning APIs, without reverting to the limitations of explicit GPU memory 
+allocation.
+

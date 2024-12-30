@@ -1,0 +1,24 @@
+= Introduction
+
+Nearly a decade ago, NVIDIA® pioneered the use of GPUs to accelerate computationally-intensive
+workloads with the introduction of the G80 GPU and the NVIDIA® CUDA® parallel computing platform. 
+Today, NVIDIA® Tesla® GPUs accelerate thousands of High Performance Computing (HPC) applications 
+across many areas including computational fluid dynamics, medical research, machine vision, financial 
+modeling, quantum chemistry, energy discovery, and several others.
+
+NVIDIA Tesla GPUs are installed in many of the world’s top supercomputers, accelerating discovery and 
+enabling increasingly complex simulations across multiple domains. Datacenters are using NVIDIA Tesla 
+GPUs to speed up numerous HPC and Big Data applications, while also enabling leading-edge Artificial
+Intelligence (AI) and Deep Learning systems. 
+
+NVIDIA’s new NVIDIA Tesla P100 accelerator (see Figure 1) using the groundbreaking new NVIDIA® 
+Pascal™ GP100 GPU takes GPU computing to the next level. This paper details both the Tesla P100 
+accelerator and the Pascal GP100 GPU architectures. 
+
+Also discussed is NVIDIA’s powerful new DGX-1 server that utilizes eight Tesla P100 accelerators,
+effectively an AI supercomputer in a box. The DGX-1 is purpose-built to assist researchers advancing AI, 
+and data scientists requiring an integrated system for Deep Learning.
+
+Figure 1. NVIDIA Tesla P100 with Pascal GP100 GPU
+
+

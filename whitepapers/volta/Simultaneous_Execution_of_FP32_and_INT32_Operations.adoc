@@ -1,0 +1,13 @@
+= Simultaneous Execution of FP32 and INT32 Operations
+
+Unlike Pascal GPUs, which could not execute FP32 and INT32 instructions simultaneously, the 
+Volta GV100 SM includes separate FP32 and INT32 cores, allowing simultaneous execution of 
+FP32 and INT32 operations at full throughput, while also increasing instruction issue throughput. 
+Dependent instruction issue latency is also reduced for core FMA (Fused Multiply-Add) math 
+operations, requiring only four clock cycles on Volta, compared to six cycles on Pascal.
+
+Many applications have inner loops that perform pointer arithmetic (integer memory address 
+calculations) combined with floating-point computations that will benefit from simultaneous 
+execution of FP32 and INT32 instructions. Each iteration of a pipelined loop can update addresses 
+(INT32 pointer arithmetic) and load data for the next iteration while simultaneously processing 
+the current iteration in FP32.

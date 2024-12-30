@@ -1,0 +1,50 @@
+= Big Data Problem Solving with NVIDIA GPUs and DNNs
+
+Baidu, Google, Facebook, Microsoft were among the earliest adopters of NVIDIA GPUs for Deep Learning
+and AI processing. In fact, AI technology enables these companies to respond to your spoken word, 
+translate speech or text to another language, recognize and automatically tag images, and recommend 
+newsfeeds, entertainment, and products that are tailored to each user. Startups and established 
+companies are now racing to use AI to create new products and services, or improve their operations. In 
+just two years, the number of companies NVIDIA collaborates with on Deep Learning has jumped nearly 
+35x to over 3,400 companies (see Figure 29). Industries such as healthcare, life sciences, energy, financial 
+services, automotive, manufacturing, and entertainment will benefit by inferring insight from mountains 
+of data. And with Facebook, Google, and Microsoft opening their deep-learning platforms for all to use, 
+AI-powered applications will spread fast. In light of this trend, Wired recently heralded the rise of the 
+GPU.
+
+Figure 29. Organizations Engaged with NVIDIA on Deep Learning
+
+== Self-driving Cars
+
+Whether to augment humans with a superhuman co-pilot, or revolutionize personal mobility services, or 
+reduce the need for sprawling parking lots within cities, self-driving cars have the potential to do amazing 
+social good. Driving is complicated. Unexpected things happen. Freezing rain turns the road into a skating 
+rink. The road to your destination is closed. A child runs out in front of the car. You can’t write software 
+that anticipates every possible scenario a self-driving car might encounter. That’s the value of Deep 
+Learning; it can learn, adapt, and improve. We are building an end-to-end Deep Learning platform for 
+self-driving cars with NVIDIA DRIVE PX , NVIDIA DriveWorks, and NVIDIA DriveNet (see Figure 30)— from 
+the training system to the in-car AI computer. The results are very exciting. A future with superhuman 
+computer co-pilots and driverless shuttles is no longer science fiction.
+
+Figure 30. NVIDIA DriveNet
+
+== Robots
+
+FANUC, a leading manufacturing robot maker, recently demonstrated an assembly-line robot that learned 
+to pick randomly oriented objects out of a bin. The GPU-powered robot learned by trial and error. This 
+deep-learning technology was developed by Preferred Networks, which was recently featured in a The 
+Wall Street Journal article headlined, Japan Seeks Tech Revival with Artificial Intelligence.
+
+== Healthcare and Life Sciences
+
+Deep Genomics is applying GPU-based Deep Learning to understand how genetic variations can lead to 
+disease. Arterys uses GPU-powered Deep Learning to speed analysis of medical images. Its technology will 
+be deployed in GE Healthcare MRI machines to help diagnose heart disease. Enlitic is using Deep Learning
+to analyze medical images to identify tumors, nearly invisible fractures, and other medical conditions.
+
+These are just a handful of examples of how GPUs and DNNs are revolutionizing Artificial Intelligence and 
+machine learning in various fields. There are literally thousands more.
+
+Deep learning breakthroughs are accelerating AI capabilities at many levels, and GPU-accelerated Deep 
+Learning and AI systems and algorithms are enabling exponential progress in the field. 
+

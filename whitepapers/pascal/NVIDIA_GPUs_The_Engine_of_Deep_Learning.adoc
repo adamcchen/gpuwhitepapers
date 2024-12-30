@@ -1,0 +1,25 @@
+= NVIDIA GPUs: The Engine of Deep Learning
+
+State-of-the-art DNNs and CNNs can have from millions to well over one billion parameters to adjust via 
+back-propagation. Furthermore, DNNs require a large amount of training data to achieve high accuracy, 
+meaning hundreds of thousands to millions of input samples will have to be run through both a forward 
+and backward pass.
+
+It is now widely recognized within academia and industry that GPUs are the state of the art in training 
+deep neural networks, due to both speed and energy efficiency advantages compared to more traditional 
+CPU-based platforms. Because neural networks are created from large numbers of identical neurons,
+they are highly parallel by nature. This parallelism maps naturally to GPUs, which provide a significant 
+speed-up over CPU-only training. 
+
+Neural networks rely heavily on matrix math operations and complex multi-layered networks require 
+tremendous amounts of floating point performance and bandwidth for both efficiency and speed. GPUs 
+with their thousands of processing cores, optimized for matrix math operations, and delivering tens to 
+hundreds of TFLOPS of performance, are the obvious computing platform for deep neural network-based 
+artificial intelligence and machine learning applications.
+
+NVIDIA is at the forefront of this exciting GPU driven revolution in DNNs and Artificial Intelligence (AI). 
+NVIDIA GPUs are accelerating DNNs in various applications by a factor of 10x to 20x, reducing training 
+times from weeks to days. By collaborating with experts in this field, we continue to improve our GPU 
+designs, system architecture, compilers and algorithms. In the past three years, NVIDIA GPU-based 
+computing platforms have helped speed up Deep Learning network training times by a factor of fifty. 
+

@@ -1,0 +1,25 @@
+= UNIFIED MEMORY AND ADDRESS TRANSLATION SERVICES
+
+A limited form of Unified Memory was introduced with CUDA 6 in our Kepler and Maxwell GPUs, 
+and it was improved with hardware page faulting and a larger address space in the Pascal GP100 
+GPU. Unified memory allows a single unified virtual address space for CPU and GPU memory, 
+greatly simplifying GPU programming and porting of applications to GPUs. Programmers no 
+longer need to worry about managing data sharing between GPU and CPU virtual memory 
+systems. Unified Memory in Pascal GP100 provided transparent migration of data between the 
+full virtual address spaces of both the GPU and CPU. (For a detailed explanation of Pascal Unified 
+Memory technology, please see our Pascal Architecture Whitepaper.)
+
+Although Unified Memory in Pascal GP100 improved CUDA programming in many ways, Volta 
+GV100 further improves efficiency and performance of Unified Memory. A new Access Counter 
+feature keeps track of the frequency of access that a GPU makes to memory located on other 
+processors. Access Counters help ensure memory pages are moved to the physical memory of 
+the processor that is accessing the pages most frequently. The Access Counters feature can work 
+in either NVLink- or PCIe-connected GPU-CPU or GPU-GPU architectures, and can work with 
+different types of CPUs including Power 9, x86, and others. 
+
+Volta also supports Address Translation Services (ATS) over NVLink. ATS allows the GPU to directly 
+access the CPU’s page tables. A miss in the GPU MMU will result in an Address Translation 
+Request (ATR) to the CPU. The CPU looks in its page tables for the virtual-to-physical mapping for
+that address and supplies the translation back to the GPU. ATS provides the GPU full access to 
+CPU memory, for example to memory allocated directly with ‘malloc’.
+
